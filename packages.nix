@@ -1,21 +1,11 @@
-{ pkgs, ... }:
-
-let
-  nixvim = import (builtins.fetchGit {
-    url = "https://github.com/nix-community/nixvim";
-    ref = "nixos-25.05";
-  });
-  agenix = builtins.fetchGit {
-    url = "https://github.com/ryantm/agenix";
-    ref = "main";
-  };
-in
 {
-  imports = [
-    nixvim.nixosModules.nixvim
-    "${agenix}/modules/age.nix"
-  ];
+  pkgs,
+  inputs,
+  system,
+  ...
+}:
 
+{
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
@@ -29,7 +19,7 @@ in
     rustup
     zellij
 
-    (callPackage "${agenix}/pkgs/agenix.nix" {})
+    inputs.agenix.packages.${system}.default
   ];
 
   programs.fish = {

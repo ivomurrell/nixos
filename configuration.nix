@@ -12,8 +12,9 @@
       ./servers.nix
     ];
 
-  nixpkgs.overlays = [
-    (import "${fetchTarball "https://github.com/nix-community/fenix/archive/main.tar.gz"}/overlay.nix")
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -75,11 +76,6 @@
     address = "fe80::1";
     interface = "enp1s0";
   };
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  system.copySystemConfiguration = true;
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
