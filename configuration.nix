@@ -5,12 +5,12 @@
 { ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./packages.nix
-      ./servers.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./packages.nix
+    ./servers.nix
+  ];
 
   nix.settings.experimental-features = [
     "nix-command"
@@ -65,13 +65,19 @@
   services.fail2ban.enable = true;
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 22 80 443 ];
+  networking.firewall.allowedTCPPorts = [
+    22
+    80
+    443
+  ];
 
   # Configure IPv6 on Hetzner
-  networking.interfaces.enp1s0.ipv6.addresses = [{
-    address = "2a01:4f9:c012:5a53::1";
-    prefixLength = 64;
-  }];
+  networking.interfaces.enp1s0.ipv6.addresses = [
+    {
+      address = "2a01:4f9:c012:5a53::1";
+      prefixLength = 64;
+    }
+  ];
   networking.defaultGateway6 = {
     address = "fe80::1";
     interface = "enp1s0";
@@ -97,4 +103,3 @@
   system.stateVersion = "25.05"; # Did you read the comment?
 
 }
-

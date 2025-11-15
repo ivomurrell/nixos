@@ -12,29 +12,36 @@
     };
   };
 
-  outputs = { nixpkgs, nixvim, agenix, fenix, ... }@inputs: 
+  outputs =
+    {
+      nixpkgs,
+      nixvim,
+      agenix,
+      fenix,
+      ...
+    }@inputs:
     let
       system = "aarch64-linux";
     in
-  {
-    nixpkgs.overlays = [
-      fenix.overlays.default
-    ];
-
-    nixosConfigurations.cherry = nixpkgs.lib.nixosSystem {
-      inherit system;
-
-      specialArgs = { inherit inputs system; };
-      modules = [
-        {
-          nixpkgs.overlays = [
-            fenix.overlays.default
-          ];
-        }
-        ./configuration.nix
-        nixvim.nixosModules.nixvim
-        agenix.nixosModules.default
+    {
+      nixpkgs.overlays = [
+        fenix.overlays.default
       ];
+
+      nixosConfigurations.cherry = nixpkgs.lib.nixosSystem {
+        inherit system;
+
+        specialArgs = { inherit inputs system; };
+        modules = [
+          {
+            nixpkgs.overlays = [
+              fenix.overlays.default
+            ];
+          }
+          ./configuration.nix
+          nixvim.nixosModules.nixvim
+          agenix.nixosModules.default
+        ];
+      };
     };
-  };
 }

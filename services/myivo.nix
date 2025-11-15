@@ -25,7 +25,7 @@ let
     sourceRoot = "${finalAttrs.src.name}/server";
 
     cargoHash = "sha256-9rSju9gaUdimGIGeVZmVrvaKRvXR8g+1NitjQG/f4iQ=";
-    
+
     nativeBuildInputs = with pkgs; [
       pkg-config
     ];
@@ -58,8 +58,8 @@ in
 
   systemd.services.myivo = {
     description = "personal website server";
-    after = ["network.target"];
-    wantedBy = ["multi-user.target"];
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
 
     environment.APPLE_DEVELOPER_AUTH_KEY_PATH = "%d/apple-music-auth-key";
 

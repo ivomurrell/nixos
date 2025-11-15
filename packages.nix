@@ -15,6 +15,7 @@
     git
     httpie
     jujutsu
+    nixfmt-rfc-style
     ripgrep
     rustup
     zellij
@@ -56,6 +57,17 @@
 
     plugins = {
       lspconfig.enable = true;
+      conform-nvim = {
+        enable = true;
+        settings = {
+          formatters_by_ft = {
+            nix = [ "nixfmt" ];
+          };
+          format_on_save = {
+            lsp_format = "fallback";
+          };
+        };
+      };
       lualine.enable = true;
       nvim-tree = {
         enable = true;
