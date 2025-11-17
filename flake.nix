@@ -10,6 +10,7 @@
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    tangled.url = "git+https://tangled.org/tangled.org/core?ref=refs/tags/v1.10.0-alpha";
   };
 
   outputs =
@@ -18,6 +19,7 @@
       nixvim,
       agenix,
       fenix,
+      tangled,
       ...
     }@inputs:
     let
@@ -41,6 +43,7 @@
           ./configuration.nix
           nixvim.nixosModules.nixvim
           agenix.nixosModules.default
+          tangled.nixosModules.knot
         ];
       };
     };
