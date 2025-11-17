@@ -21,26 +21,26 @@
       fenix,
       tangled,
       ...
-    }@inputs:
+    }:
     let
       system = "aarch64-linux";
     in
     {
-      nixpkgs.overlays = [
-        fenix.overlays.default
-      ];
-
       nixosConfigurations.cherry = nixpkgs.lib.nixosSystem {
         inherit system;
 
-        specialArgs = { inherit inputs system; };
         modules = [
           {
             nixpkgs.overlays = [
               fenix.overlays.default
+              (final: prev: {
+                agenix = agenix.packages.${system}.default;
+              })
             ];
           }
+
           ./configuration.nix
+
           nixvim.nixosModules.nixvim
           agenix.nixosModules.default
           tangled.nixosModules.knot
