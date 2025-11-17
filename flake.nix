@@ -5,12 +5,22 @@
       url = "github:nix-community/nixvim/nixos-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    agenix.url = "github:ryantm/agenix";
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        darwin.follows = "";
+        home-manager.follows = "";
+      };
+    };
     fenix = {
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    tangled.url = "git+https://tangled.org/tangled.org/core?ref=refs/tags/v1.10.0-alpha";
+    tangled = {
+      url = "git+https://tangled.org/tangled.org/core?ref=refs/tags/v1.10.0-alpha";
+      inputs.flake-compat.follows = "";
+    };
   };
 
   outputs =
