@@ -82,7 +82,9 @@ in
     extraConfig = ''
       @backend path / /media/*
 
-      root * ${frontend}
+      root ${frontend}
+      encode
+
       reverse_proxy @backend localhost:53465
       file_server
     '';

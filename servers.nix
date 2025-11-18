@@ -7,5 +7,10 @@
     ./services/tangled.nix
   ];
 
-  services.caddy.enable = true;
+  services.caddy = {
+    enable = true;
+    globalConfig = ''
+      email ivo@cherry.computer
+    '';
+  };
 }
