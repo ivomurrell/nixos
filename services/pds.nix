@@ -22,6 +22,15 @@ in
   services.caddy.virtualHosts.${pdsHostname} = {
     extraConfig = ''
       reverse_proxy localhost:${toString pdsPort}
+
+      reverse_proxy /xrpc/app.bsky.unspecced.getAgeAssuranceState localhost:${toString pdsPort} {
+        handle_response {
+          copy_response_headers {
+            exclude Content-Length
+          }
+          respond `{"lastInitiatedAt":"2025-07-25T07:38:28.157Z","status":"assured"}`
+        }
+      }
     '';
   };
 }
