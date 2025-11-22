@@ -56,6 +56,10 @@ let
       mkdir -p $out/build
       cp frontend/build/app.min.js $out/build/app.js
       cp frontend/build/app.min.css $out/build/app.css
+
+      for asset in $out/build/*; do
+        echo \"$(md5sum $asset | cut -f1 -d " ")\" > "$asset.md5"
+      done
     '';
   });
 in
@@ -95,8 +99,16 @@ in
       root ${frontend}
       encode
 
-      reverse_proxy @backend localhost:53465
-      file_server
+      handle @backend {
+        reverse_proxy localhost:53465
+      }
+      handle {
+        file_server {
+          etag_file_extensions .md5
+        }
+        header Cache-Control no-cache
+        header -Last-Modified
+      }
     '';
   };
 }
