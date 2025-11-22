@@ -4,7 +4,7 @@ let
   knotPort = "8890";
 in
 {
-  services.tangled-knot = {
+  services.tangled.knot = {
     enable = true;
     server = {
       listenAddr = "0.0.0.0:${knotPort}";
