@@ -34,6 +34,13 @@
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
 
+  nix.optimise.automatic = true;
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users = {
     root.hashedPassword = "!"; # Disable root login
