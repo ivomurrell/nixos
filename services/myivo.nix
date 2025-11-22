@@ -1,16 +1,23 @@
 {
   pkgs,
+  lib,
   config,
   ...
 }:
 
 let
-  monorepo = pkgs.fetchFromGitHub {
-    owner = "ivomurrell";
-    repo = "myivo";
-    rev = "main";
-    hash = "sha256-2GujN44qTnEhLcvIRdl3ZaqYzQ2nQNJJX2LBFAdCqzE=";
+  monorepo = pkgs.fetchgit {
+    url = "https://tangled.org/cherry.computer/website";
+    rev = "refs/heads/main";
+    hash = "sha256-kXjHwS3dLW4Wv86qojEDUaVVdfXtddy/nAkWJVCx3ME=";
+    leaveDotGit = true;
+    postFetch = ''
+      cd "$out"
+      git rev-parse HEAD > $out/COMMIT
+      find "$out" -name .git -print0 | xargs -0 rm -rf
+    '';
   };
+  monorepoSha = lib.trim (builtins.readFile "${monorepo}/COMMIT");
 
   rustToolchain = pkgs.fenix.stable.defaultToolchain;
   rustPlatform = pkgs.makeRustPlatform {
@@ -61,7 +68,10 @@ in
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
 
-    environment.APPLE_DEVELOPER_AUTH_KEY_PATH = "%d/apple-music-auth-key";
+    environment = {
+      APPLE_DEVELOPER_AUTH_KEY_PATH = "%d/apple-music-auth-key";
+      MYIVO_GIT_SHA = monorepoSha;
+    };
 
     serviceConfig = {
       Restart = "on-failure";
