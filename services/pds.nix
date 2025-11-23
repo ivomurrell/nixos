@@ -10,7 +10,7 @@ in
     group = "pds";
   };
 
-  services.pds = {
+  services.bluesky-pds = {
     enable = true;
     settings = {
       PDS_PORT = pdsPort;

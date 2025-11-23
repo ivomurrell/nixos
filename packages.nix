@@ -65,7 +65,9 @@
       lualine.enable = true;
       nvim-tree = {
         enable = true;
-        actions.openFile.quitOnOpen = true;
+        settings = {
+          actions.open_file.quit_on_open = true;
+        };
       };
       sandwich.enable = true;
       sleuth.enable = true;
