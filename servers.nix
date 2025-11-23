@@ -3,6 +3,7 @@
 {
   imports = [
     ./services/myivo.nix
+    ./services/anki.nix
     ./services/pds.nix
     ./services/tangled.nix
   ];

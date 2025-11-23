@@ -5,6 +5,7 @@ let
   systems = [ hetzner ];
 in
 {
+  "anki.age".publicKeys = users ++ systems;
   "apple-music-auth-key.age".publicKeys = users ++ systems;
   "myivo-dot-env.age".publicKeys = users ++ systems;
   "pds-dot-env.age".publicKeys = users ++ systems;
