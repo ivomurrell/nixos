@@ -23,12 +23,12 @@ in
     extraConfig = ''
       reverse_proxy localhost:${toString pdsPort}
 
-      reverse_proxy /xrpc/app.bsky.unspecced.getAgeAssuranceState localhost:${toString pdsPort} {
+      reverse_proxy /xrpc/app.bsky.ageassurance.getState localhost:${toString pdsPort} {
         handle_response {
           copy_response_headers {
             exclude Content-Length
           }
-          respond `{"lastInitiatedAt":"2025-07-25T07:38:28.157Z","status":"assured"}`
+          respond `{"state":{"lastInitiatedAt":"2025-07-25T07:38:28.157Z","status":"assured","access":"full"},"metadata":{"accountCreatedAt":"2024-11-14T20:07:16.032Z"}}`
         }
       }
     '';
