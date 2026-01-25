@@ -9,7 +9,7 @@ let
   monorepo = pkgs.fetchgit {
     url = "https://tangled.org/cherry.computer/website";
     rev = "refs/heads/main";
-    hash = "sha256-zqldeIwzXLCJ0er35+jznCkfzoMxDqRjdDF2NwrwC48=";
+    hash = "sha256-7Pw6rRa66PzLUYlCrYa7+TFyFK5+jACZxox6x3Fybt8=";
     leaveDotGit = true;
     postFetch = ''
       cd "$out"
